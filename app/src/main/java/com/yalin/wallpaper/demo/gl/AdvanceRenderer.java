@@ -36,8 +36,6 @@ public class AdvanceRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        gl.glEnable(GL10.GL_LIGHT0); // Enable Light 0
-
         // Blending
         gl.glColor4f(1.0f, 1.0f, 1.0f, 0.5f); // Full Brightness. 50% Alpha ( NEW )
         gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE); // Set The Blending Function For Translucency ( NEW )
@@ -45,13 +43,11 @@ public class AdvanceRenderer implements GLSurfaceView.Renderer {
         gl.glDisable(GL10.GL_DITHER); // Disable dithering
         gl.glEnable(GL10.GL_TEXTURE_2D); // Enable Texture Mapping
         gl.glShadeModel(GL10.GL_SMOOTH); // Enable Smooth Shading
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.5f); // Black Background
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black Background
         gl.glClearDepthf(1.0f); // Depth Buffer Setup
         gl.glEnable(GL10.GL_DEPTH_TEST); // Enables Depth Testing
         gl.glDepthFunc(GL10.GL_LEQUAL); // The Type Of Depth Testing To Do
 
-        // Really Nice Perspective Calculations
-        gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT, GL10.GL_NICEST);
         cube.loadGLTexture(gl, context);
     }
 
@@ -77,9 +73,6 @@ public class AdvanceRenderer implements GLSurfaceView.Renderer {
 
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity(); // Reset The Current Modelview Matrix
-
-        // Check if the light flag has been set to enable/disable lighting
-        gl.glEnable(GL10.GL_LIGHTING);
 
         // Check if the blend flag has been set to enable/disable blending
         gl.glEnable(GL10.GL_BLEND); // Turn Blending On ( NEW )

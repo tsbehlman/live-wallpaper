@@ -35,15 +35,11 @@ public class Cube {
     /**
      * The buffer holding the texture coordinates
      */
-    private FloatBuffer textureBuffer;
+    private FloatBuffer uvBuffer;
     /**
      * The buffer holding the indices
      */
     private ByteBuffer indexBuffer;
-    /**
-     * The buffer holding the normals
-     */
-    private FloatBuffer normalBuffer;
 
     /**
      * Our texture pointer
@@ -87,45 +83,9 @@ public class Cube {
     };
 
     /**
-     * The initial normals for the lighting calculations
-     */
-    private float normals[] = {
-            //Normals
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-
-            0.0f, 0.0f, 1.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            0.0f, -1.0f, 0.0f,
-    };
-
-    /**
      * The initial texture coordinates (u, v)
      */
-    private float texture[] = {
+    private float uv[] = {
             //Mapping coordinates for the vertices
             0.0f, 0.0f,
             0.0f, 1.0f,
@@ -185,18 +145,11 @@ public class Cube {
         vertexBuffer.position(0);
 
         //
-        byteBuf = ByteBuffer.allocateDirect(texture.length * 4);
+        byteBuf = ByteBuffer.allocateDirect(uv.length * 4);
         byteBuf.order(ByteOrder.nativeOrder());
-        textureBuffer = byteBuf.asFloatBuffer();
-        textureBuffer.put(texture);
-        textureBuffer.position(0);
-
-        //
-        byteBuf = ByteBuffer.allocateDirect(normals.length * 4);
-        byteBuf.order(ByteOrder.nativeOrder());
-        normalBuffer = byteBuf.asFloatBuffer();
-        normalBuffer.put(normals);
-        normalBuffer.position(0);
+        uvBuffer = byteBuf.asFloatBuffer();
+        uvBuffer.put(uv);
+        uvBuffer.position(0);
 
         //
         indexBuffer = ByteBuffer.allocateDirect(indices.length);
@@ -216,18 +169,16 @@ public class Cube {
         //Bind the texture according to the set texture filter
         gl.glBindTexture(GL10.GL_TEXTURE_2D, textures[filter]);
 
-        //Enable the vertex, texture and normal state
+        //Enable the vertex and texture state
         gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-        gl.glEnableClientState(GL10.GL_NORMAL_ARRAY);
 
         //Set the face rotation
         gl.glFrontFace(GL10.GL_CCW);
 
         //Point to our buffers
         gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
-        gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, textureBuffer);
-        gl.glNormalPointer(GL10.GL_FLOAT, 0, normalBuffer);
+        gl.glTexCoordPointer(2, GL10.GL_FLOAT, 0, uvBuffer);
 
         //Draw the vertices as triangles, based on the Index Buffer information
         gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE, indexBuffer);
@@ -235,7 +186,6 @@ public class Cube {
         //Disable the client state before leaving
         gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
         gl.glDisableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-        gl.glDisableClientState(GL10.GL_NORMAL_ARRAY);
     }
 
     /**
