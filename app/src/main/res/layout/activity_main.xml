@@ -16,20 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:onClick="normalWallpaperSelect"
-        android:text="@string/normal_wallpaper_select" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:onClick="glWallpaperSelect"
-        android:text="@string/gl_wallpaper_select" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:onClick="advanceGLWallpaperSelect"
         android:text="@string/advance_gl_wallpaper_select" />
 </LinearLayout>

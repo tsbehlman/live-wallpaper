@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.yalin.wallpaper.demo.gl.AdvanceGLWallpaperService;
-import com.yalin.wallpaper.demo.normal.NormalWallpaperService;
-import com.yalin.wallpaper.demo.gl.MyGLWallpaperService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,24 +17,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void normalWallpaperSelect(View view) {
-        Intent intent = new Intent(
-                WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                new ComponentName(this, NormalWallpaperService.class));
-        startActivity(intent);
-    }
-
     public void normalWallpaperCustom(View view) {
         startActivity(new Intent(this, SettingActivity.class));
-    }
-
-    public void glWallpaperSelect(View view) {
-        Intent intent = new Intent(
-                WallpaperManager.ACTION_CHANGE_LIVE_WALLPAPER);
-        intent.putExtra(WallpaperManager.EXTRA_LIVE_WALLPAPER_COMPONENT,
-                new ComponentName(this, MyGLWallpaperService.class));
-        startActivity(intent);
     }
 
     public void advanceGLWallpaperSelect(View view) {
