@@ -1,5 +1,7 @@
 package com.yalin.wallpaper.demo.gl;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -36,7 +38,11 @@ public class AdvanceGLWallpaperService extends GLWallpaperService {
         @Override
         public void onTouchEvent(MotionEvent event) {
             super.onTouchEvent(event);
-            renderer.onTouchEvent(event);
+            SharedPreferences prefs = PreferenceManager
+                    .getDefaultSharedPreferences(AdvanceGLWallpaperService.this);
+            if (prefs.getBoolean("touch", false)) {
+                renderer.onTouchEvent(event);
+            }
         }
 
         @Override

@@ -3,7 +3,4 @@
     <CheckBoxPreference
         android:key="touch"
         android:title="Enable Touch" />
-    <EditTextPreference
-        android:key="numberOfCircles"
-        android:title="Number of Circles" />
 </PreferenceScreen>
